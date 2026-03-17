@@ -5,14 +5,14 @@ import java.util.Random;
 import java.util.Scanner;
 
 public class Data {
-    public static final int N = 3;
+    public static final int N = 50;
     private static final Scanner scanner = new Scanner(System.in);
     private static final Random random = new Random();
 
-    public static int[] vectorInput(String name) {
+    public synchronized static int[] vectorInput(String name) {
         int[] v = new int[N];
         if (N <= 3) {
-            System.out.println("Введіть елементи вектора " + name + " (" + N + " шт.):");
+            System.out.println("Введіть елементи вектора " + name + " (N = " + N + "):");
             for (int i = 0; i < N; i++) {
                 v[i] = scanner.nextInt();
             }
@@ -24,10 +24,10 @@ public class Data {
         return v;
     }
 
-    public static int[][] matrixInput(String name) {
+    public synchronized static int[][] matrixInput(String name) {
         int[][] m = new int[N][N];
         if (N <= 3) {
-            System.out.println("Введіть елементи матриці " + name + " (рядками):");
+            System.out.println("Введіть елементи матриці " + name + " (N = " + N + "):");
             for (int i = 0; i < N; i++) {
                 for (int j = 0; j < N; j++) {
                     m[i][j] = scanner.nextInt();
@@ -41,6 +41,15 @@ public class Data {
             }
         }
         return m;
+    }
+
+    public synchronized static int scalarInput(String name) {
+        if (N <= 3) {
+            System.out.println("Введіть скаляр " + name + ": ");
+            return scanner.nextInt();
+        } else {
+            return random.nextInt(10);
+        }
     }
 
     public static void printVector(String name, int[] v) {
